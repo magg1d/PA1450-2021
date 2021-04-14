@@ -75,5 +75,5 @@ def data_over_time(filter_type, filter_key, data_value, start_date, end_date, in
 # compare_data("Province_State", "Blekinge", "Confirmed",dt.datetime(2020, 3, 22), dt.datetime(2021, 4, 8))
 
 
-data_over_time("Province_State", "Blekinge", "Confirmed", dt.datetime(2020, 9, 1), dt.datetime(2021, 3, 1), 7)
+data_over_time("Province_State", "Blekinge", "Confirmed", dt.datetime(2021, 1, 1), dt.datetime(2021, 2, 1), 7)
 
