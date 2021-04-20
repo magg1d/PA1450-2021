@@ -1,0 +1,71 @@
+body {
+  background: #262431;
+  color: #fff;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.p-heading {
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+}
+
+.container {
+  text-align: center;
+  width: 70%;
+  padding: 20px;
+}
+
+.form-control {
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
+  width: 50%;
+}
+
+.form-alternatives {    /*centrerar svarsalternativen i kortet, men dem är fortfarande "ryggade" till vänster*/
+  display: inline-block;
+  text-align: left;
+}
+
+.card {
+  display: none;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  background: #393c44;
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+}
+
+.card img {
+  padding-bottom: 40px;
+}
+
+.card .card-text {
+  font-size: 1.2rem;
+}
+
+.error-msg {
+  color: red;
+  font-size: 0.75rem;
+  margin-bottom: 0;
+}
+
+.submit-btn {
+  background: #262431;
+  color: #fff;
+  width: 170px;
+  padding: 8px;
+  margin-top: 1rem;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.submit-btn:hover {
+  background: #222428;
+  border: 1px solid #262431;
+  color: #f1f1f1;
+  cursor: pointer;
+}

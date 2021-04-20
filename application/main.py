@@ -1,7 +1,7 @@
 """Main module of the application"""
 
 from argparse import ArgumentParser
-
+import pandas
 from application.commands import serve, greet
 
 def main():
