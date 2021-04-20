@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container">
+        <div class="card" style="display: block;">
+            <form action="http://localhost:8080/plot" method="POST">
+
+                <div class="card-body">
+                    <p class="card-text">Choose filter type</p>
+                    <select class="form-select form-control" name="filter-type">
+                        <option value="" selected disabled>Select filter type</option>
+                        {% for x in filter_types %}
+                            <option value="{{ x }}">{{ x }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <p class="card-text">Choose filter value</p>
+                    <select class="form-select form-control" name="filter-value">
+                        <option value="" selected disabled>Select filter type</option>
+                        <option value="Blekinge">Blekinge</option>
+                        <option value="Stockholm">Stockholm</option>
+                        <option value="Skane">Skåne</option>
+                    </select>
+
+                    <div class="container">
+                        <input class="form-check-input" onInput="formCheck()" value="total" type="radio"
+                               name="choose-data">
+                        <label class="form-check-label" for="total-data">Total data</label>
+                        <input class="form-check-input" onInput="formCheck()" type="radio" name="choose-data"
+                               id="delta-data" value="delta">
+                        <label class="form-check-label" for="delta-data">Delta data</label>
+                        <input class="form-control" name="interval" type="text" id="interval"
+                               placeholder="Enter Interval (days)" disabled>
+                    </div>
+
+                    <p class="card-text">Choose time range</p>
+                    <input type="date" id="start-date" name="start-date" class="form-control" min="2020-01-01"
+                           max="2021-12-31" placeholder="Start date">
+                    <input type="date" id="end-date" name="end-date" class="form-control" min="2020-01-01"
+                           max="2021-12-31" placeholder="End date">
+                    <input class="btn submit-btn" type="submit" value="Plot data">
+                    <p style="color: red">{{ errormsg }}</p>
+                </div>
+            </form>
+            <img src="{{ fig }}">
+
+        </div>
+
+    </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
+
