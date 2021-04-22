@@ -15,16 +15,11 @@
                     </select>
 
                     <p class="card-text">Choose filter value</p>
-                    <select class="form-select form-control" name="filter-value">
-                        <option value="" selected disabled>Select filter type</option>
-                        <option value="Blekinge">Blekinge</option>
-                        <option value="Stockholm">Stockholm</option>
-                        <option value="Skane">Skåne</option>
-                    </select>
+                    <input class="form-control" type="text" name="filter-value" placeholder="Filter value">
 
                     <div class="container">
                         <input class="form-check-input" onInput="formCheck()" value="total" type="radio"
-                               name="choose-data">
+                               id="total-data" name="choose-data">
                         <label class="form-check-label" for="total-data">Total data</label>
                         <input class="form-check-input" onInput="formCheck()" type="radio" name="choose-data"
                                id="delta-data" value="delta">
@@ -34,10 +29,22 @@
                     </div>
 
                     <p class="card-text">Choose time range</p>
-                    <input type="date" id="start-date" name="start-date" class="form-control" min="2020-01-01"
+                    <input type="date" id="start-date" name="start-date" class="form-control" min="2020-01-22"
                            max="2021-12-31" placeholder="Start date">
-                    <input type="date" id="end-date" name="end-date" class="form-control" min="2020-01-01"
+                    <input type="date" id="end-date" name="end-date" class="form-control" min="2020-01-22"
                            max="2021-12-31" placeholder="End date">
+
+                    <div class="container">
+                        <p class="card-text">Fetch data by URL or Local? URL is slower but provice most updated data.</p>
+                        <input class="form-check-input" value="url" type="radio"
+                               id="by-url" name="fetch-by">
+                        <label class="form-check-label" for="by-url">By URL</label>
+                        <input class="form-check-input" type="radio" name="fetch-by"
+                               id="by-local" value="local">
+                        <label class="form-check-label" for="by-local">By Local</label>
+
+                    </div>
+
                     <input class="btn submit-btn" type="submit" value="Plot data">
                     <p style="color: red">{{ errormsg }}</p>
                 </div>
