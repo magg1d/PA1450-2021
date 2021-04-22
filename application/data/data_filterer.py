@@ -20,19 +20,20 @@ def filter_data(dataframe, filter_type, filter_key):
         return print("Invalid datafile")
 
 
-def compare_data(filter_type, filter_key, start_date, end_date):
+def compare_data(filter_type, filter_key, start_date, end_date, fetch_by, display):
     """Shows data over time"""
     data = []
     for curr_date in date_range(start_date, end_date):
         # Open each days dataframe
         filename = date_to_filename(curr_date)
-        df = load_csv(filename)
+        df = load_csv(filename, fetch_by)
 
         # Filter the dataframe by given params
         fd = filter_data(df, filter_type, filter_key)
 
         # Remove timestamps from date-column
-        fd["Last_Update"] = to_datetime(fd["Last_Update"], format='%Y-%m-%d')
+        if display == "plot":
+            fd["Last_Update"] = to_datetime(fd["Last_Update"], format='%Y-%m-%d')
         data.append(fd)
 
     # All configured data is summed into one dataframe
@@ -40,15 +41,15 @@ def compare_data(filter_type, filter_key, start_date, end_date):
     return total_data
 
 
-def data_over_time(filter_type, filter_key, data_value, start_date, end_date, interval):
+def data_over_time(filter_type, filter_key, data_value, start_date, end_date, interval, fetch_by):
     """Shows how the data has changed over time"""
     data = []
     for curr_date in date_range(start_date, end_date, freq=str(interval)+'D'):
         # Open previous and today's datafile
         file1 = date_to_filename(curr_date - dt.timedelta(days=interval))
         file2 = date_to_filename(curr_date)
-        df1 = load_csv(file1)
-        df2 = load_csv(file2)
+        df1 = load_csv(file1, fetch_by)
+        df2 = load_csv(file2, fetch_by)
 
         # Filters the data of both dataframes
         fd1 = filter_data(df1, filter_type, filter_key)
