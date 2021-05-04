@@ -4,6 +4,7 @@ from pandas import date_range, to_datetime, concat
 from .csv_loader import load_csv
 import datetime as dt
 
+import json
 
 def date_to_filename(date):
     """Convert date object to formatted filename-string"""
@@ -20,13 +21,13 @@ def filter_data(dataframe, filter_type, filter_key):
         return print("Invalid datafile")
 
 
-def compare_data(filter_type, filter_key, start_date, end_date, fetch_by, display):
+def compare_data(filter_type, filter_key, start_date, end_date, display):
     """Shows data over time"""
     data = []
     for curr_date in date_range(start_date, end_date):
         # Open each days dataframe
         filename = date_to_filename(curr_date)
-        df = load_csv(filename, fetch_by)
+        df = load_csv(filename)
 
         # Filter the dataframe by given params
         fd = filter_data(df, filter_type, filter_key)
@@ -41,15 +42,15 @@ def compare_data(filter_type, filter_key, start_date, end_date, fetch_by, displa
     return total_data
 
 
-def data_over_time(filter_type, filter_key, data_value, start_date, end_date, interval, fetch_by):
+def data_over_time(filter_type, filter_key, data_value, start_date, end_date, interval):
     """Shows how the data has changed over time"""
     data = []
     for curr_date in date_range(start_date, end_date, freq=str(interval)+'D'):
         # Open previous and today's datafile
         file1 = date_to_filename(curr_date - dt.timedelta(days=interval))
         file2 = date_to_filename(curr_date)
-        df1 = load_csv(file1, fetch_by)
-        df2 = load_csv(file2, fetch_by)
+        df1 = load_csv(file1)
+        df2 = load_csv(file2)
 
         # Filters the data of both dataframes
         fd1 = filter_data(df1, filter_type, filter_key)
@@ -67,3 +68,8 @@ def data_over_time(filter_type, filter_key, data_value, start_date, end_date, in
     # All configured data is then summed into one dataframe
     total_data = concat(data)
     return total_data
+
+if __name__ == "__main__":
+    data = compare_data("Country_Region", "Albania", dt.datetime(2021,2,22), dt.datetime(2021,2,28), "url", "plot")
+    for index, row in data.iterrows():
+        print(row["Country_Region"], row["Last_Update"], row["Confirmed"])
