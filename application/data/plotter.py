@@ -28,7 +28,6 @@ def create_plot(dataframe, x_values, y_values, secondary_y=None):
 
     fig.autofmt_xdate()
 
-
     return fig
 
 
