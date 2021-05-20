@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from ..data.data_filterer import compare_data, data_over_time, filter_data
 from ..data.plotter import create_plot, encode_fig
 from pandas import to_datetime, unique
-from ..data.json_loader import load_json
+from ..data.json_loader import load_json, get_start_date
 from datetime import datetime as dt
 
 FILTER_TYPES = ["Country_Region", "Province_State", "Admin2"]
@@ -33,17 +33,17 @@ def serve(options):
             end_date = to_datetime(end_date_form, format='%Y-%m-%d')
             show_by = request.form.get('choose-data')
 
-            if data_type == "n_total":
+            if data_type == "n_full":
                 data = load_json()
                 data = filter_data(data, filter_type, filter_value)
-                secondary_y = "n_full"
+                secondary_y = "n_single"
             else:
                 secondary_y = None
                 if show_by == "delta":
                     interval = int(request.form.get('interval'))
                     data = data_over_time(filter_type, filter_value, data_type, start_date, end_date, interval)
                 elif show_by == "total":
-                    data = compare_data(filter_type, filter_value, start_date, end_date, "plot")
+                    data = compare_data(filter_type, filter_value, data_type, start_date, end_date, "plot")
                 else:
                     return render_template("index.html", errormsg="Please input valid options", filter_types=FILTER_TYPES)
 
@@ -52,9 +52,9 @@ def serve(options):
             return render_template("index.html", showFig=True, fig=fig_b64, filter_types=FILTER_TYPES)
         render_template("index.html", show_fig=False, filter_types=FILTER_TYPES)
 
-    @app.route("/api/<filter>/<key>")
-    def api(filter, key):
-        data = compare_data(filter, key, dt(2021,1,1), dt(2021,4,1), "local", "api")
+    @app.route("/api/<filter>/<key>/<data_type>")
+    def api(filter, key, data_type):
+        data = compare_data(filter, key, data_type, dt(2021,1,1), dt(2021,5,20), "api")
         json = data.to_json(orient='split')
         return render_template("api.html", json=json)
 

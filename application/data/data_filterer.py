@@ -28,6 +28,7 @@ def sum_col(fd, filter_type, filter_key, data_value):
     fd.loc["Total", "Last_Update"] = date_tidy
     return fd.loc["Total"]
 
+
 def compare_data(filter_type, filter_key, data_value, start_date, end_date, display):
     """Shows data over time"""
     data = []
@@ -81,7 +82,8 @@ def data_over_time(filter_type, filter_key, data_value, start_date, end_date, in
     total_data = concat(data)
     return total_data
 
+
 if __name__ == "__main__":
-    data = compare_data("Country_Region", "Sweden", "Confirmed",dt.datetime(2021, 2, 22), dt.datetime(2021, 2, 23), "plot")
+    data = compare_data("Country_Region", "Albania", "Confirmed",dt.datetime(2021, 2, 22), dt.datetime(2021, 2, 23), "plot")
     print(data)
 

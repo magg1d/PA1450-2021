@@ -17,8 +17,8 @@ def create_plot(dataframe, x_values, y_values, secondary_y=None):
     ys = dataframe[y_values].tolist()
     if secondary_y is not None:
         y2s = dataframe[secondary_y].tolist()
-        line1, = ax.plot(xs, ys, label="Total Doses Given")
-        line2, = ax.plot(xs, y2s, label="Fully Vaccinated")
+        line1, = ax.plot(xs, ys, label="Two Doses")
+        line2, = ax.plot(xs, y2s, label="One Dose")
         ax.legend(handles=[line1, line2])
         days_elapsed = len(date_range(xs[0], xs[-1], freq='D'))
         ax.set_xticks(range(0, days_elapsed, 7))
