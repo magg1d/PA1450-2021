@@ -1,23 +1,15 @@
 """Module loading CSV dataframes"""
-from pandas import DataFrame, read_csv, unique
-import os
+from pandas import DataFrame, read_csv
 
-DATADIR = "application/data_files/"
 URL_PATH = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/" # + yyyy-mm-dd.csv
 
 
-def load_csv(filename, src):
+def load_csv(filename):
     """Loads CSV file to Dataframe"""
-    if src =="url":
-        filename = URL_PATH + filename
-    elif src == "local":
-        filename = DATADIR + filename
-    else:
-        return -1
+    filename = URL_PATH + filename
     dataframe = DataFrame()
     try:
         dataframe = read_csv(filename)
     except FileNotFoundError:
         return "File not found. Please try again."
     return dataframe
-https://www.svt.se/special/articledata/3362/fohm_tabeller.json
